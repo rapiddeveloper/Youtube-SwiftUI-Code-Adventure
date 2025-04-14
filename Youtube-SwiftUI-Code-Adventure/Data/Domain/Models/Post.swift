@@ -17,6 +17,8 @@ struct PostsList {
      var nextPageToken: String = ""
      var items: [Post] = []
 }
+
+ 
 struct Post: Identifiable {
     var id: String
     var title: String
@@ -33,15 +35,19 @@ struct Post: Identifiable {
         thumbnail.default
     }
     
-    var displayedViewCount: String {
-        "\(String(viewCount/1000))k views"
-    }
+    var displayedViewCount: String = "0 views"
+    var displayedPublishedAt: String = "N/A"
+
+    
+//    var displayedViewCount: String {
+//        "\(String(viewCount/1000))k views"
+//    }
     
     var displayedChannelProfileURL: URL {
         URL(string: channelProfileURL)!
     }
     
-    var displayedPublishedAt: String {
-        "1 hour ago"
-    }
+//    var displayedPublishedAt: String {
+//        "1 hour ago"
+//    }
 }

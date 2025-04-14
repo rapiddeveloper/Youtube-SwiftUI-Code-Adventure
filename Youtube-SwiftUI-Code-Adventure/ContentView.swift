@@ -8,17 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var selectedTab: TabViewEnum = .home
+    var homeVM = HomeViewModel(videoRepository: PostRepository(service: .shared))
+    @Environment(Router.self) var router
+
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        @Bindable var tabRouter = router
+        
+        TabView(selection: $tabRouter.selectedTab) {
+            ForEach(TabViewEnum.allCases) { tab in
+                Tab(value: tab) {
+                    tab
+                } label: {
+                    if tab == .accout {
+                        Image(systemName: "person.circle")
+                            .font(.title3)
+                     } else {
+                        SVGImage(svg: tab.tabItem.image, width: 23, height: 26)
+                    }
+                    if tab != .create {
+                        Text(tab.tabItem.name)
+                    }
+                }
+
+            }
         }
-        .padding()
+        .environment(homeVM)
+        .onAppear {
+            Task {
+                await  homeVM.loadVideos()
+            }
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environment(Router())
 }

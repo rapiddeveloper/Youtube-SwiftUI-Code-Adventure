@@ -18,7 +18,7 @@ struct PreviewData {
     static let samplePosts: [Post] = [
         .init(id: "1", title: "Florida vs. Houston - 2025 men's national championship extended highlights",
               description: "", thumbnail: PreviewData.thumbnails, mediaUrl: "", mediaKind: MediaKind.video, channelTitle: "Not Just Sports", publishedAt: ""),
-        .init(id: "2", title: "Two Chinese citizens captured during fighting in Ukraine, Zelenskyy says",
+        .init(id: "2", title: "HANDCUFFED TO MY BEST-FRIEND FOR 24 HOURS!",
               description: "", thumbnail: PreviewData.thumbnails, mediaUrl: "", mediaKind: MediaKind.video, channelTitle: "Not Just Movies", publishedAt: ""),
         .init(id: "3", title: "Lagos vs. Houston - 2025 men's national championship extended highlights",
               description: "", thumbnail: PreviewData.thumbnails, mediaUrl: "", mediaKind: MediaKind.video, channelTitle: "Not Just Games", publishedAt: "")

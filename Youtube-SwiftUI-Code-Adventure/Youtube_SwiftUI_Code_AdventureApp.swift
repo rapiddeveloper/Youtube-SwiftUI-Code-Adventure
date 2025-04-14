@@ -10,18 +10,12 @@ import SwiftUI
 @main
 struct Youtube_SwiftUI_Code_AdventureApp: App {
     
-    var homeVM = HomeViewModel(videoRepository: PostRepository(service: .shared))
+    var router = Router()
     
     var body: some Scene {
         WindowGroup {
-           // ContentView()
-            HomeScreen()
-                .environment(homeVM)
-                .onAppear {
-                    Task {
-                        await  homeVM.loadVideos()
-                    }
-                }
+            ContentView()
+                .environment(router)
         }
     }
 }

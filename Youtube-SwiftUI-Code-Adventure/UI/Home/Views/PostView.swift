@@ -42,15 +42,18 @@ struct Footer: View {
     let post: Post
     
     var body: some View {
-        HStack(alignment: .top, spacing: 16.0) {
+        HStack(alignment: .top, spacing: 0.0) {
             ProfilePhoto(avatarURL: post.channelProfileURL, width: 50.0, height: 50.0)
-        
+            Spacer()
+                .frame(width: 16.0)
             VStack(alignment: .leading, spacing: 4){
                 Text(post.title)
                     .lineLimit(2)
                      .font(.system(size: 16, weight: .regular, design: .default))
+                    // .fixedSize(horizontal: false, vertical: false)
                  HStack(spacing: 6) {
                     Text(post.channelTitle)
+                         .lineLimit(1)
                     
                     Color(.gray)
                         .frame(width: 2, height: 2)
@@ -64,7 +67,7 @@ struct Footer: View {
                  .foregroundStyle(.secondary)
                 
             }
-           // Spacer()
+            Spacer()
 
             Image(systemName: "ellipsis")
                 .rotationEffect(.degrees(90))

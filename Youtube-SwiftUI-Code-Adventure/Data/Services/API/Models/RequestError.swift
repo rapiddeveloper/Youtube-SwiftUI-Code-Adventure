@@ -20,7 +20,7 @@ enum RequestError: Equatable, LocalizedError, Error {
     case noResponse(String?)
     case unknown(String?)
     case accountNotExist(name: String, email: String)
-    
+    case invalidInput
     
     
     var errorDescription: String? {

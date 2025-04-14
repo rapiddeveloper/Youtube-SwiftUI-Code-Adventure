@@ -26,6 +26,7 @@ struct ProfilePhoto: View {
         AsyncImage(url: URL(string: avatarURL)) { image in
             image
                 .resizable()
+                .aspectRatio(1/1, contentMode: .fit)
                 .frame(width: width, height: height)
                 .clipShape(Circle())
                 .overlay(
@@ -36,7 +37,7 @@ struct ProfilePhoto: View {
             ProgressView()
                 .controlSize(.small)
         }
-
+ 
     }
 }
 
