@@ -11,6 +11,8 @@ struct PostView: View {
     
     let post : Post
     @State private var thumbnail: Thumbnail
+    //@Environment(ThemeManager.self) var themeManager
+
     
     init(_ post : Post){
         self.post = post
@@ -35,11 +37,13 @@ struct PostView: View {
 
 #Preview {
     PostView(PreviewData.samplePosts[1])
+        .environment(ThemeManager())
 }
 
 struct Footer: View {
     
     let post: Post
+    @Environment(ThemeManager.self) var themeManager
     
     var body: some View {
         HStack(alignment: .top, spacing: 0.0) {
@@ -49,8 +53,8 @@ struct Footer: View {
             VStack(alignment: .leading, spacing: 4){
                 Text(post.title)
                     .lineLimit(2)
-                     .font(.system(size: 16, weight: .regular, design: .default))
-                    // .fixedSize(horizontal: false, vertical: false)
+                    .font(themeManager.theme.bodyLarge)
+                    .foregroundStyle(themeManager.theme.onSurfaceColor)
                  HStack(spacing: 6) {
                     Text(post.channelTitle)
                          .lineLimit(1)
@@ -63,13 +67,14 @@ struct Footer: View {
                     Text(post.displayedPublishedAt)
                     
                 }
-                 .font(.system(size: 13, weight: .regular, design: .default))
-                 .foregroundStyle(.secondary)
+                 .font(themeManager.theme.labelMedium)
+                 .foregroundStyle(themeManager.theme.outlineColor)
                 
             }
             Spacer()
 
             Image(systemName: "ellipsis")
+                .foregroundStyle(themeManager.theme.onSurfaceColor)
                 .rotationEffect(.degrees(90))
                 .frame(width: 3, height: 23)
             
@@ -80,7 +85,8 @@ struct Footer: View {
         .padding(.top, 16)
         .padding(.bottom, 22)
         .background {
-            Color.red
+            themeManager.theme.surfaceColor
+            //Color.red
         }
      }
 }

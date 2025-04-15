@@ -11,11 +11,13 @@ import SwiftUI
 struct Youtube_SwiftUI_Code_AdventureApp: App {
     
     var router = Router()
+    var themeManager: ThemeManager = .init()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(router)
+                .environment(themeManager)
         }
     }
 }

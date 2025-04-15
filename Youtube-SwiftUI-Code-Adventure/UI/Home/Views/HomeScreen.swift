@@ -10,12 +10,15 @@ import SwiftUI
 struct HomeScreen: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
+    //@Environment(ThemeManager.self) var themeManager
+
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 ForEach(homeViewModel.posts, id: \.id) { post in
                     PostView(post)
+                      //  .environment(themeManager)
                 }
             }
         }

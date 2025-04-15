@@ -32,7 +32,7 @@ struct Post: Identifiable {
     var publishedAt: String
     
     var defaultThumbnail: Thumbnail {
-        thumbnail.default
+        thumbnail.medium
     }
     
     var displayedViewCount: String = "0 views"

@@ -21,7 +21,7 @@ struct PostRepository: PostRepositoryProtocol {
             let channelProfileMap = await channelProfileUrlMap(forVideos: videosResponse.items)
             var postsList = PostsList()
             postsList.items = videosResponse.items.map({ video in
-                Post(
+                 return Post(
                     id: video.id,
                     title: video.snippet.title,
                     description: video.snippet.description,

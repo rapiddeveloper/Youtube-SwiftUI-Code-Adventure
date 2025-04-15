@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct YouTubeTabView: View {
+    
     @Binding var selection: TabViewEnum
+    @Environment(ThemeManager.self) var themeManager
     
     var body: some View {
         HStack(spacing: 0) {
@@ -30,6 +32,7 @@ struct YouTubeTabView: View {
                         if tabView != .create {
                             Text(tabView.tabItem.name)
                                 .font(.system(size: 9, weight: .regular))
+                                .foregroundStyle(themeManager.theme.onBackgroundColor)
                         } else {
                            // Text("create")
                             //    .hidden()
@@ -48,11 +51,12 @@ struct YouTubeTabView: View {
         }
         .padding(.bottom, 10.0)
         .frame(maxWidth: .infinity)
-        .background(.white, in: Rectangle())
+        .background(themeManager.theme.backgroundColor, in: Rectangle())
       }
 }
 
 #Preview {
     @Previewable @State var selectedTab: TabViewEnum = .home
     YouTubeTabView(selection: $selectedTab)
+        .environment(ThemeManager())
 }

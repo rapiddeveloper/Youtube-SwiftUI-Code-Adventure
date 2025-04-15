@@ -47,7 +47,7 @@ struct ContentView: View {
         .onAppear {
             Task {
                 await  homeVM.loadVideos()
-            }
+             }
         }
     }
 }

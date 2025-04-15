@@ -36,7 +36,7 @@ enum TabViewEnum: String, CaseIterable, Identifiable, View {
     }
     
     var tabItem: TabItem {
-        var name = self.rawValue.capitalized
+        let name = self.rawValue.capitalized
         switch self {
         case .home:
             return .init(name: name, image: "Home")
