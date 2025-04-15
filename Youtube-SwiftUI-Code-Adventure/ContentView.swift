@@ -22,6 +22,8 @@ struct ContentView: View {
             ForEach(TabViewEnum.allCases) { tab in
                 Tab(value: tab) {
                     tab
+                        .toolbarVisibility(.hidden, for: .tabBar)
+
                 } label: {
                     if tab == .accout {
                         Image(systemName: "person.circle")
@@ -35,7 +37,12 @@ struct ContentView: View {
                 }
 
             }
+
         }
+        .safeAreaInset(edge: .bottom, content: {
+            YouTubeTabView(selection: $tabRouter.selectedTab)
+        })
+        .ignoresSafeArea(edges: .all)
         .environment(homeVM)
         .onAppear {
             Task {
