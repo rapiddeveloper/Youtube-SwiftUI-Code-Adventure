@@ -21,6 +21,9 @@ struct Youtube_SwiftUI_Code_AdventureApp: App {
                 .environment(themeManager)
                 .environment(errorDetails)
                 .errorAlert(errorDetails: errorDetails)
+                .onAppear {
+                    
+                }
         }
     }
 }
