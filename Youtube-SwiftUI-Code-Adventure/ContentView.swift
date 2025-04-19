@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @State private var selectedTab: TabViewEnum = .home
     var homeVM = HomeViewModel(videoRepository: PostRepository(service: .shared))
+    
     @Environment(Router.self) var router
 
     
@@ -44,11 +45,7 @@ struct ContentView: View {
         })
         .ignoresSafeArea(edges: .all)
         .environment(homeVM)
-        .onAppear {
-            Task {
-                await  homeVM.loadVideos()
-             }
-        }
+         
     }
 }
 

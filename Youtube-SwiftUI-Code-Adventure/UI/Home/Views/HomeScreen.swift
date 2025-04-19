@@ -10,17 +10,32 @@ import SwiftUI
 struct HomeScreen: View {
     
     @Environment(HomeViewModel.self) var homeViewModel
+    @Environment(ErrorDetails.self) var errorDetails
     //@Environment(ThemeManager.self) var themeManager
 
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
+            @Bindable var homeVMBinding = homeViewModel
             LazyVStack(spacing: 0) {
-                ForEach(homeViewModel.posts, id: \.id) { post in
+                ForEach(homeVMBinding.posts, id: \.id) { post in
                     PostView(post)
-                      //  .environment(themeManager)
+                 }
+            }
+            .overlay(alignment: .center) {
+                if homeVMBinding.isLoadingPosts == .loading {
+                    VStack {
+                        ProgressView()
+                    }
                 }
             }
+            .onChange(of: homeVMBinding.isLoadingPosts) { oldValue, newValue in
+                print("errored")
+                if case .failure(let error) = homeViewModel.isLoadingPosts {
+                    errorDetails.showError("Error", error.localizedDescription)
+                }
+            }
+            
         }
         
     }

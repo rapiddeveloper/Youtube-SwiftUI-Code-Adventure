@@ -11,6 +11,7 @@ import SwiftUI
 struct Youtube_SwiftUI_Code_AdventureApp: App {
     
     var router = Router()
+    var errorDetails = ErrorDetails()
     var themeManager: ThemeManager = .init()
     
     var body: some Scene {
@@ -18,6 +19,8 @@ struct Youtube_SwiftUI_Code_AdventureApp: App {
             ContentView()
                 .environment(router)
                 .environment(themeManager)
+                .environment(errorDetails)
+                .errorAlert(errorDetails: errorDetails)
         }
     }
 }

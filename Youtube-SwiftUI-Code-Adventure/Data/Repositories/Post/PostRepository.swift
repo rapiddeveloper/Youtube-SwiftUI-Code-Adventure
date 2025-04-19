@@ -28,9 +28,8 @@ struct PostRepository: PostRepositoryProtocol {
                     thumbnail: video.snippet.thumbnails,
                     mediaUrl: "",
                     mediaKind: .video,
-                    channelProfileURL: channelProfileMap[video.snippet.channelId] ?? "",
+                    channelProfileURL: channelProfileMap[video.snippet.channelId],
                     channelTitle: video.snippet.channelTitle,
-                    
                     publishedAt: "" ,
                     displayedViewCount: formattingViewCountString(video.statistics.viewCount),
                     displayedPublishedAt: formattingTimeSinceDate(from: video.snippet.publishedAt)
@@ -44,7 +43,7 @@ struct PostRepository: PostRepositoryProtocol {
         }
     }
     
-    private func channelProfileUrlMap(forVideos videos: [YouTubeVideo]) async -> [String: String] {
+    private func channelProfileUrlMap(forVideos videos: [YouTubeVideo]) async -> [String: URL] {
         // Step 1: Extract all channelIds
         let channelIds = videos.map { $0.snippet.channelId }
         
@@ -52,11 +51,11 @@ struct PostRepository: PostRepositoryProtocol {
         let channelsResult = await service.getYouTubeChannels(ids: Array(Set(channelIds)))
         
         // Step 3: Create a map of channelId to channelProfileURL
-        var channelProfileMap: [String: String] = [:]
+        var channelProfileMap: [String: URL] = [:]
         if case .success(let channelResponse) = channelsResult {
             for item in channelResponse.items {
                 let profileURL = item.snippet.thumbnails.default.url
-                channelProfileMap[item.id] = profileURL
+                channelProfileMap[item.id] = URL(string: profileURL)
             }
         }
         

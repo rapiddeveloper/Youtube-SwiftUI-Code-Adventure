@@ -27,8 +27,8 @@ struct Post: Identifiable {
     var mediaUrl: String
     var mediaKind: MediaKind
     var viewCount: Int = 1000
-    var channelProfileURL: String = "https://res.cloudinary.com/adminixtrator/image/upload/v1742196112/vmodel/sq-2.png"
-    var channelTitle: String 
+    var channelProfileURL: URL?
+    var channelTitle: String
     var publishedAt: String
     
     var defaultThumbnail: Thumbnail {
@@ -43,8 +43,8 @@ struct Post: Identifiable {
 //        "\(String(viewCount/1000))k views"
 //    }
     
-    var displayedChannelProfileURL: URL {
-        URL(string: channelProfileURL)!
+    var displayedChannelProfileURL: URL? {
+        channelProfileURL
     }
     
 //    var displayedPublishedAt: String {

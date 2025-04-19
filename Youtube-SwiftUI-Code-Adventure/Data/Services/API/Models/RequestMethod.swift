@@ -21,3 +21,10 @@ enum RequestMethod: String  {
     case put = "PUT"
     case patch = "PATCH"
 }
+
+enum RequestStatus: Equatable {
+    case idle
+    case loading
+    case success
+    case failure(RequestError)
+}

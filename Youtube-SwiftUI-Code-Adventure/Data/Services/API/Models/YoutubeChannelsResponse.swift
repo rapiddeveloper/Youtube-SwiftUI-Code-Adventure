@@ -24,7 +24,7 @@ struct Channel: Codable {
 
 // MARK: - Snippet
 struct ChannelSnippet: Codable {
-    let title, description, customUrl: String
+    let title, description, customUrl: String?
     let publishedAt: String
     let thumbnails: ChannelThumbnails
     let defaultLanguage: String?

@@ -44,11 +44,11 @@ struct Thumbnails: Codable {
     let medium: Thumbnail
     let high: Thumbnail
     let standard: Thumbnail
-    let maxres: Thumbnail
+    let maxres: Thumbnail?
 }
 
 struct Thumbnail: Codable {
-    let url: String
+    let url: URL
     let width: CGFloat
     let height: CGFloat
 }

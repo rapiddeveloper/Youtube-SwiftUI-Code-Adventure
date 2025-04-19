@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PostView: View {
     
@@ -18,20 +19,22 @@ struct PostView: View {
         self.post = post
         self._thumbnail = State(initialValue: post.defaultThumbnail)
     }
+    
     var body: some View {
         VStack(spacing: 0) {
-            AsyncImage(url: URL(string: thumbnail.url)) { image in
-                image
-                    .resizable()
-                   // .aspectRatio(16/9, contentMode: .fit)
-                    .frame(maxWidth: .infinity)
-                    .frame(height:  325.0)
- 
-            } placeholder: {
-                ProgressView()
-            }
-            Footer(post: post)
+            WebImage(url: thumbnail.url) { image in
+                   image.resizable() // Control layout like SwiftUI.AsyncImage, you must use this modifier or the view will use the image bitmap size
+               } placeholder: {
+                       Rectangle().foregroundColor(.gray)
+               }
+               .transition(.fade(duration: 0.5)) // Fade Transition with duration
+               .aspectRatio(576/325, contentMode: .fit)
+               .frame(maxWidth: .infinity)
+             Footer(post: post)
+
         }
+              
+             
      }
 }
 
@@ -47,7 +50,7 @@ struct Footer: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 0.0) {
-            ProfilePhoto(avatarURL: post.channelProfileURL, width: 50.0, height: 50.0)
+            ProfilePhoto(avatarURL: post.channelProfileURL, profileRingColor: .clear, width: 50.0, height: 50.0)
             Spacer()
                 .frame(width: 16.0)
             VStack(alignment: .leading, spacing: 4){

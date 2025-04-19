@@ -5,11 +5,13 @@
 //  Created by Orisajobi Akinbola on 4/9/25.
 //
 
+import Foundation
+
  
 
 struct PreviewData {
     
-    private static let thumbnail = Thumbnail(url: "https://i.ytimg.com/vi/igDpFxg60qU/hqdefault.jpg", width: 320.0, height: 180.0)
+    private static let thumbnail = Thumbnail(url: URL(string: "https://i.ytimg.com/vi/igDpFxg60qU/hqdefault.jpg")!, width: 320.0, height: 180.0)
     //let thumbnails:
     
     private static let thumbnails: Thumbnails = .init(default: thumbnail, medium: thumbnail, high: thumbnail, standard: thumbnail, maxres: thumbnail)

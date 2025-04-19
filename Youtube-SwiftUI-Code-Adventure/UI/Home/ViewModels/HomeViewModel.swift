@@ -15,6 +15,7 @@ class HomeViewModel {
     private var videoRepository: PostRepository
     
     private(set) var postsList: PostsList = PostsList()
+    private(set) var isLoadingPosts: RequestStatus = .idle
     
     var posts : [Post] {
         postsList.items
@@ -23,23 +24,29 @@ class HomeViewModel {
     
     init(videoRepository: PostRepository) {
         self.videoRepository = videoRepository
+        Task {
+            await  loadVideos()
+         }
     }
     
     func loadVideos() async {
+        isLoadingPosts = .loading
         let (fetchedVideos, getVideosError) = await videoRepository.getPosts()
         
        if let error = getVideosError {
+            isLoadingPosts = .failure(error)
             print("Error fetching videos: \(error)")
             return
         }
         
         guard let fetchedVideos = fetchedVideos else {
             print("Failed to fetch videos.")
+            isLoadingPosts = .failure(.unexpected())
             return
         }
         
+        isLoadingPosts = .idle
         self.postsList = fetchedVideos
-        print("Loaded \(postsList.items.count) videos.")
-    }
+     }
     
 }
