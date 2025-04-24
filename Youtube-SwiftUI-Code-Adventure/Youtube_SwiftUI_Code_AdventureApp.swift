@@ -17,6 +17,7 @@ struct Youtube_SwiftUI_Code_AdventureApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .toolbarVisibility(.hidden, for: .tabBar)
                 .environment(router)
                 .environment(themeManager)
                 .environment(errorDetails)

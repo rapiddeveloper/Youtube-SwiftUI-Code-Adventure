@@ -14,6 +14,7 @@ struct YouTubeTabView: View {
     
     var body: some View {
         HStack(spacing: 0) {
+            
             ForEach(TabViewEnum.allCases) { tabView in
                 Button {
                     selection = tabView
@@ -49,7 +50,13 @@ struct YouTubeTabView: View {
             }
            
         }
-        .padding(.bottom, 10.0)
+        .overlay(
+            Rectangle()
+                .frame(height: 0.5)
+                .foregroundColor(Color.gray.opacity(0.5)),
+            alignment: .top
+        )
+         .padding(.bottom, 10.0)
         .frame(maxWidth: .infinity)
         .background(themeManager.theme.backgroundColor, in: Rectangle())
       }

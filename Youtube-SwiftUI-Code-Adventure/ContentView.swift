@@ -21,25 +21,15 @@ struct ContentView: View {
         
         TabView(selection: $tabRouter.selectedTab) {
             ForEach(TabViewEnum.allCases) { tab in
+            
                 Tab(value: tab) {
                     tab
-                        .toolbarVisibility(.hidden, for: .tabBar)
-
-                } label: {
-                    if tab == .accout {
-                        Image(systemName: "person.circle")
-                            .font(.title3)
-                     } else {
-                        SVGImage(svg: tab.tabItem.image, width: 23, height: 26)
-                    }
-                    if tab != .create {
-                        Text(tab.tabItem.name)
-                    }
                 }
-
             }
 
         }
+
+       // .hidden()
         .safeAreaInset(edge: .bottom, content: {
             YouTubeTabView(selection: $tabRouter.selectedTab)
         })

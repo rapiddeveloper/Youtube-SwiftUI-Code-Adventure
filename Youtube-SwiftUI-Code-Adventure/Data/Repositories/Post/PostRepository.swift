@@ -11,6 +11,10 @@ struct PostRepository: PostRepositoryProtocol {
     
     var service: VideosAPIClient
     
+    var canLoadmorePosts: Bool {
+        service.canGetMoreVideos
+    }
+    
     func getPosts() async  -> (PostsList?, RequestError?) {
         let result =  await service.getYouTubeVideos()
         

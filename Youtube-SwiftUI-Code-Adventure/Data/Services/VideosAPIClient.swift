@@ -7,11 +7,16 @@
 
 import Foundation
 
-struct VideosAPIClient: HTTPClient {
+class VideosAPIClient: HTTPClient {
     
     static let shared = VideosAPIClient()
     let baseUrl = URL(string: "https://www.googleapis.com")!
-    var apiKey = "" // insert your api key
+    private var apiKey: String!
+    private var nextVideosPageToken: String?
+    
+    var canGetMoreVideos: Bool {
+        return nextVideosPageToken != nil && !nextVideosPageToken!.isEmpty
+    }
     
     init() {
         
@@ -36,12 +41,18 @@ struct VideosAPIClient: HTTPClient {
         }
         
         videosURL.append(queryItems: [.init(name: "key", value: apiKey)])
+        if let nextPageToken = nextVideosPageToken {
+            videosURL.append(queryItems: [.init(name: "pageToken", value: nextPageToken)])
+        }
         var request = URLRequest(url: videosURL)
         request.httpMethod = .GET
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
  
-        return await sendRequest(request, responseModel: YouTubeVideosResponse.self)
-         
+        let result = await sendRequest(request, responseModel: YouTubeVideosResponse.self)
+        if let nextPageToken = try? result.get().nextPageToken {
+            self.nextVideosPageToken = nextPageToken
+        }
+        return result
     }
     
     func getYouTubeChannels(ids: [String]) async -> Result<YouTubeChannelsResponse, RequestError> {

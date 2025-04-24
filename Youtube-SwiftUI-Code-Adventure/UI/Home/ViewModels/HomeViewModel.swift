@@ -21,6 +21,10 @@ class HomeViewModel {
         postsList.items
     }
     
+    var hasPosts: Bool {
+        !posts.isEmpty
+    }
+    
     
     init(videoRepository: PostRepository) {
         self.videoRepository = videoRepository
@@ -30,6 +34,13 @@ class HomeViewModel {
     }
     
     func loadVideos() async {
+        
+ 
+        
+        if isLoadingPosts != .idle || (!posts.isEmpty && !videoRepository.canLoadmorePosts) {
+            return
+        }
+        
         isLoadingPosts = .loading
         let (fetchedVideos, getVideosError) = await videoRepository.getPosts()
         
@@ -46,7 +57,7 @@ class HomeViewModel {
         }
         
         isLoadingPosts = .idle
-        self.postsList = fetchedVideos
+        self.postsList.items.append(contentsOf: fetchedVideos.items)
      }
     
 }
